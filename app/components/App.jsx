@@ -259,8 +259,10 @@ function AppInner() {
       {labsOffline && (
         <div className="app-offline-banner" role="alert">
           <span>
-            ⚠ <strong>Lab server offline.</strong> Coding labs are unavailable until it's running.
-            Start it: <code>cd lab-server &amp;&amp; node server.js</code>
+            ⚠ <strong>Lab server offline.</strong> Coding labs won't work until it's running.
+            {' '}Quick start: <code>bash start.sh</code> — or manually:
+            {' '}<code>cd lab-server &amp;&amp; npm install &amp;&amp; npm run build:images &amp;&amp; node server.js</code>
+            {' '}(Docker must be running and images must be built on first use).
           </span>
           <button onClick={() => window.location.reload()}>Reload</button>
         </div>

@@ -27,10 +27,22 @@ cases you never see enforce *that* it actually works.
 
 ## 🚀 Quick start
 
-Prerequisites: **Docker** running, **Node 18+**, **Python 3** (to serve the static frontend).
+Prerequisites: **Docker** running, **Node 18+**, **Python 3**.
+
+### Option A — one command (recommended)
 
 ```bash
-# 1. Build the lab + target images
+bash start.sh
+```
+
+This handles `npm install`, building the Docker images, starting the target
+container, launching the lab-server on `:3030`, and serving the frontend on
+`:5174` — all in one shot. Safe to run on a fresh clone.
+
+### Option B — manual steps
+
+```bash
+# 1. Install dependencies + build Docker images (one-time, ~1-2 min)
 cd lab-server
 npm install
 npm run build:images
@@ -46,9 +58,13 @@ node server.js          # http://127.0.0.1:3030
 cd ../app && python3 -m http.server 5174
 ```
 
-Open <http://localhost:5174>. The frontend fetches the lab catalog from the
-lab-server automatically. If the lab-server isn't running you'll see an
-on-screen banner explaining how to start it.
+Open <http://localhost:5174>.
+
+> **"No labs found" / labs show as unavailable?**  
+> This almost always means the lab-server isn't running, or the Docker images
+> haven't been built yet. The frontend fetches the lab catalog from
+> `http://127.0.0.1:3030/labs` on boot — if that request fails, labs are
+> hidden. Run `bash start.sh` and it will fix everything automatically.
 
 Verify everything works:
 
