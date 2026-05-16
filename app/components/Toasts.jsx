@@ -13,9 +13,10 @@ function Toasts() {
       const { msg, kind = 'ok' } = e.detail || {};
       const id = ++_toastId;
       setToasts(prev => [...prev, { id, msg, kind }]);
+      const duration = kind === 'ok' ? 3000 : 4500;
       setTimeout(() => {
         setToasts(prev => prev.filter(t => t.id !== id));
-      }, 3000);
+      }, duration);
     }
     window.addEventListener('toast', onToast);
     return () => window.removeEventListener('toast', onToast);
@@ -31,6 +32,11 @@ function Toasts() {
       background: 'rgba(251,191,36,0.12)',
       border: '1px solid rgba(251,191,36,0.3)',
       color: 'var(--amber)',
+    };
+    if (kind === 'info') return {
+      background: 'rgba(96,165,250,0.12)',
+      border: '1px solid rgba(96,165,250,0.3)',
+      color: '#60a5fa',
     };
     // err
     return {

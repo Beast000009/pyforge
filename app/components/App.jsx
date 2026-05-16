@@ -134,7 +134,27 @@ function AppInner() {
         break;
       case 'lab.toggle': {
         const cur = (state.layout[state.activeId] || {});
-        actions.setLayout({ ...state.layout, [state.activeId]: { ...cur, labOpen: !cur.labOpen } });
+        const nowOpen = !cur.labOpen;
+        // If trying to open but nothing to show — give actionable feedback instead of silent no-op
+        if (nowOpen) {
+          if (labsOffline) {
+            window.dispatchEvent(new CustomEvent('toast', { detail: {
+              msg: '⚠ Lab server offline. Run: bash start.sh',
+              kind: 'warn',
+            }}));
+            return;
+          }
+          const starters = window.LAB_STARTERS || {};
+          const hasLab = Object.values(starters).some(l => l.subsectionId === state.activeId);
+          if (!hasLab) {
+            window.dispatchEvent(new CustomEvent('toast', { detail: {
+              msg: 'No lab for this lesson — navigate to a lesson marked ⚡',
+              kind: 'info',
+            }}));
+            return;
+          }
+        }
+        actions.setLayout({ ...state.layout, [state.activeId]: { ...cur, labOpen: nowOpen } });
         break;
       }
       case 'lab.run':
