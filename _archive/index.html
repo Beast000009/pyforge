@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#0d1117"/>
+  <title>PyForge — Python Reviewer Designs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0a0d14;
+      --bg2: #10161e;
+      --card: #141a24;
+      --card2: #1a2030;
+      --border: #1e2837;
+      --border2: #253040;
+      --text: #dde4ed;
+      --text-2: #8b98a9;
+      --text-3: #5a6677;
+      --primary: #e84b22;
+      --primary-dim: rgba(232,75,34,0.12);
+      --primary-border: rgba(232,75,34,0.35);
+      --ok: #4ade80;
+      --font: 'Geist', ui-sans-serif, system-ui, sans-serif;
+      --mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+      --serif: 'Instrument Serif', ui-serif, serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(ellipse at top, #15202e 0%, var(--bg) 60%);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 14px;
+      line-height: 1.5;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 64px 28px 80px; }
+    .mast { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; }
+    .pill {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 3px 8px; border-radius: 4px; background: var(--primary); color: #fff;
+    }
+    .mast-name { font-size: 12px; font-weight: 600; color: var(--text-2); letter-spacing: 0.04em; }
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(34px, 5vw, 54px);
+      font-weight: 400;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+    }
+    h1 em { color: var(--primary); font-style: italic; }
+    .lede {
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--text-2);
+      max-width: 64ch;
+      margin-bottom: 44px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 18px;
+    }
+    a.card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 22px 22px 24px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      text-decoration: none;
+      transition: border-color 140ms, transform 140ms, background 140ms;
+    }
+    a.card:hover {
+      border-color: var(--primary-border);
+      background: var(--card2);
+      transform: translateY(-1px);
+    }
+    a.card.primary { border-color: var(--primary-border); }
+    .card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .card-title { font-size: 16px; font-weight: 600; color: var(--text); }
+    .card-kind {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+      background: var(--primary-dim);
+      padding: 3px 7px;
+      border-radius: 4px;
+    }
+    .card p { font-size: 13px; line-height: 1.6; color: var(--text-2); }
+    .card ul { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+    .card li {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      color: var(--text-3);
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 3px 7px;
+      border-radius: 4px;
+    }
+    .footer-note {
+      margin-top: 48px;
+      padding-top: 22px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-3);
+      font-family: var(--mono);
+      line-height: 1.7;
+    }
+    .footer-note code {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 2px 6px;
+      border-radius: 3px;
+      color: var(--text-2);
+    }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin: 36px 0 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="mast">
+      <span class="pill">PyForge</span>
+      <span class="mast-name">Python Reviewer — Design Handoff</span>
+    </div>
+
+    <h1>Two designs, one project — pick a <em>prototype</em>.</h1>
+    <p class="lede">
+      Combined handoff bundle covering the full Python course web app (75 lessons, SRS, in-browser REPL, theme toggle) and the PyForge workspace shell (resizable lab pane, command palette, dashboard, flag tracker, mobile companion). Both prototypes run client-side — no build step.
+    </p>
+
+    <div class="section-label">Prototypes</div>
+    <div class="grid">
+      <a class="card primary" href="pyforge/index.html">
+        <div class="card-head">
+          <div class="card-title">PyForge App</div>
+          <span class="card-kind">Workspace shell</span>
+        </div>
+        <p>The polished, brand-forward prototype. Dashboard landing with module rings + activity heatmap, resizable lab VM, ⌘K command palette, dedicated flag tracker, responsive mobile layout.</p>
+        <ul>
+          <li>P1 workspace</li><li>P2 dashboard</li><li>P3 ⌘K palette</li><li>P4 inline run</li><li>P5 flags</li><li>P6 mobile</li>
+        </ul>
+      </a>
+
+      <a class="card" href="course/index.html">
+        <div class="card-title-row card-head">
+          <div class="card-title">Course Reviewer</div>
+          <span class="card-kind">Content + SRS</span>
+        </div>
+        <p>The content-heavy variant. Sidebar tree of all 75 lessons with mastery %, inline quick-checks, SM-2 spaced-repetition Practice tab, Progress insights panel, in-browser Pyodide REPL, light/dark theme.</p>
+        <ul>
+          <li>Full 75 lessons</li><li>SRS</li><li>Pyodide REPL</li><li>Progress</li><li>Theme toggle</li>
+        </ul>
+      </a>
+    </div>
+
+    <div class="section-label">Strategy docs</div>
+    <div class="grid">
+      <a class="card" href="plans/plan-v2.html">
+        <div class="card-head">
+          <div class="card-title">Improvement Plan v2</div>
+          <span class="card-kind">Editorial</span>
+        </div>
+        <p>Document-style writeup: hero, scorecard, 6 findings, 6 proposals with before/after mocks, roadmap table, success metrics. Grounded in the actual codebase.</p>
+      </a>
+
+      <a class="card" href="plans/plan-v1.html">
+        <div class="card-head">
+          <div class="card-title">Improvement Plan v1</div>
+          <span class="card-kind">Interactive</span>
+        </div>
+        <p>7-scene walkthrough across the 6 proposals with iOS-frame mobile companion mockups. Use ↑/↓ or click the rail to step through scenes.</p>
+      </a>
+    </div>
+
+    <div class="footer-note">
+      Serve over HTTP (Babel-in-browser doesn't load JSX over <code>file://</code>):<br/>
+      &nbsp;&nbsp;<code>cd ~/Projects/python-reviewer-web && python3 -m http.server 5173</code><br/>
+      &nbsp;&nbsp;open <code>http://localhost:5173/</code><br/>
+      See <code>IMPLEMENTATION_GUIDE.md</code> for the production migration plan and <code>src/</code> for the partial TypeScript port.
+    </div>
+  </div>
+</body>
+</html>

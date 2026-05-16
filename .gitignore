@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Editors
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Build outputs
+dist/
+build/
+.parcel-cache/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Claude Code local state
+.claude/
+
+# Local lab-server runtime
+lab-server/.cache/
+
+# Tool result dumps (local only)
+tool-results/

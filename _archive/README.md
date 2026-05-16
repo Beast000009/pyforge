@@ -1,0 +1,1 @@
+These are superseded design-era artifacts from before the all-Docker, cheat-resistant rewrite. The current source of truth is /CLAUDE.md (handoff) and the live code in app/ + lab-server/. Kept for history only — not loaded or referenced by the running product.

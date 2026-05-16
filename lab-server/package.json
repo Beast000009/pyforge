@@ -1,0 +1,23 @@
+{
+  "name": "pyforge-lab-server",
+  "version": "0.1.0",
+  "description": "Docker-backed lab session orchestrator for PyForge",
+  "private": true,
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "build:images": "TAG=$(date +%Y%m%d-%H%M%S) && docker build -t pyforge-lab:1 -t pyforge-lab:$TAG -f images/lab.Dockerfile images/ && docker build -t pyforge-tgt-www:1 -t pyforge-tgt-www:$TAG -f images/targets/www.Dockerfile images/targets/ && echo \"Built tag: $TAG\"",
+    "audit": "node test-audit.mjs",
+    "test:unit": "node --test test-unit.mjs"
+  },
+  "dependencies": {
+    "dockerode": "^4.0.2",
+    "express": "^4.19.2",
+    "ws": "^8.18.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

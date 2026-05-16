@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#0d1117"/>
+  <title>Python Reviewer — OffSec Get Good at Python</title>
+  <link rel="stylesheet" href="course-styles.css"/>
+
+  <template id="__bundler_thumbnail">
+    <svg viewBox="0 0 80 56" xmlns="http://www.w3.org/2000/svg">
+      <rect width="80" height="56" fill="#0d1117"/>
+      <rect x="0" y="0" width="22" height="56" fill="#0b0f15"/>
+      <rect x="22" y="0" width="1" height="56" fill="#1e2837"/>
+      <text x="11" y="14" font-size="5" fill="#e84b22" font-family="monospace" text-anchor="middle">OFFSEC</text>
+      <rect x="4" y="18" width="14" height="2" rx="1" fill="#1e2837"/>
+      <rect x="4" y="22" width="11" height="2" rx="1" fill="#1e2837"/>
+      <rect x="4" y="26" width="13" height="2" rx="1" fill="#1e2837"/>
+      <rect x="28" y="8" width="44" height="3" rx="1" fill="#dde4ed"/>
+      <rect x="28" y="15" width="38" height="2" rx="1" fill="#5a6677"/>
+      <rect x="28" y="21" width="44" height="1.5" rx="0.75" fill="#253040"/>
+      <rect x="28" y="24.5" width="40" height="1.5" rx="0.75" fill="#253040"/>
+      <rect x="28" y="28" width="42" height="1.5" rx="0.75" fill="#253040"/>
+      <rect x="28" y="34" width="44" height="10" rx="2" fill="#161b22" stroke="#1e293b" stroke-width="0.5"/>
+      <text x="32" y="41" font-size="5" fill="#4ade80" font-family="monospace">$ python script.py</text>
+    </svg>
+  </template>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script>
+    // Suppress benign ResizeObserver loop warnings (browser quirk, not a real error)
+    window.addEventListener('error', e => {
+      if (e.message && e.message.includes('ResizeObserver')) e.stopImmediatePropagation();
+    });
+    const _onerror = window.onerror;
+    window.onerror = function(msg, ...args) {
+      if (typeof msg === 'string' && msg.includes('ResizeObserver')) return true;
+      return _onerror ? _onerror.call(this, msg, ...args) : false;
+    };
+  </script>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <!-- Course data must load first (plain JS, no Babel needed) -->
+  <script src="course-data.js"></script>
+
+  <!-- Store (must load before components that call useCourseStore) -->
+  <script type="text/babel" src="course-store.jsx"></script>
+
+  <!-- Components -->
+  <script type="text/babel" src="course-sidebar.jsx"></script>
+  <script type="text/babel" src="course-content.jsx"></script>
+  <script type="text/babel" src="course-practice.jsx"></script>
+  <script type="text/babel" src="course-progress.jsx"></script>
+  <script type="text/babel" src="course-repl.jsx"></script>
+
+  <!-- App shell — last -->
+  <script type="text/babel" src="course-app.jsx"></script>
+</body>
+</html>
