@@ -24,7 +24,7 @@ export const LAB_REGISTRY = {
     // intentional, documented exception rather than pretending it's gateable.
     allowsHardcode: true,
     flag: "PYTHON(FIRST_Script_Executed!)",
-    hint: 'Change the string inside print() to "Python is fun!"',
+    hint: "The string inside print() must match the expected text exactly — punctuation and capitalization included.",
   },
 
   "s1-1-3": {
@@ -45,41 +45,42 @@ export const LAB_REGISTRY = {
     ],
     requires: { calls: ["print"], minLines: 3 },
     flag: "PYTHON(Variables_assigned!)",
-    hint: 'color = "red" then price = 25',
+    hint: "Assign any string to color and any integer to price. The starter's print(color, price) already inserts a space between them.",
   },
 
   "s1-1-4": {
     filename: "datatypes.py",
     subsectionId: "s1-1-4",
     diff: "easy",
-    instructions: "Print the name of v's Python type (e.g. 'int', 'str'). Your code must use type() to inspect the value — hardcoding answers won't work because hidden cases use other values.",
+    instructions: "Print the Python type of v using the built-in type() function. The runner tests several values — your code must use type() so it works for every input.",
     code: "#!/usr/bin/python\nv = 55\nprint(v)\n",
     paramName: "v",
     cases: [
-      { name: "Integer", input: 55,    expected: "int" },
-      { name: "String",  input: "hi",  expected: "str" },
-      { name: "Float",   input: 3.14,  expected: "float" },
+      { name: "Integer", input: 55,    expected: "<class 'int'>" },
+      { name: "String",  input: "hi",  expected: "<class 'str'>" },
+      { name: "Float",   input: 3.14,  expected: "<class 'float'>" },
     ],
     hiddenCases: [
-      { input: true,        expected: "bool" },
-      { input: [1, 2],      expected: "list" },
-      { input: { a: 1 },    expected: "dict" },
+      { input: true,        expected: "<class 'bool'>" },
+      { input: [1, 2],      expected: "<class 'list'>" },
+      { input: { a: 1 },    expected: "<class 'dict'>" },
     ],
-    requires: { calls: ["type", "print"], attrs: ["__name__"] },
+    requires: { calls: ["type", "print"] },
     flag: "PYTHON(Type_inspector)",
-    hint: "print(type(v).__name__)",
+    hint: "Built-in type() returns the class of any value. Just print whatever it returns.",
   },
 
   "s1-1-5": {
     filename: "urle.py",
     subsectionId: "s1-1-5",
     diff: "easy",
-    instructions: "Set the start and end markers so the slice returns the full URL from the anchor tag. The runner tests several tags — your markers must work for all.",
+    instructions: "Slice the URL out of the anchor tag. The URL sits between the first \" and the next \". Find both positions with .index() and slice. Tested with multiple tags.",
     code: `#!/usr/bin/python
 tag = '<a href="https://www.offsec.com/blog">Blog</a>'
-start = ""
-end   = ""
-url = tag[tag.index(start):tag.index(end)]
+# Find the indices of the two quotes around the URL, then slice.
+start = 0
+end = 0
+url = tag[start:end]
 print(url)
 `,
     paramName: "tag",
@@ -93,7 +94,7 @@ print(url)
     ],
     requires: { attrs: ["index"], stmts: ["Subscript"] },
     flag: "PYTHON(Slicing_and_Dicing_Them_URLs)",
-    hint: 'start = "http" and end = "\\">"',
+    hint: "str.index(sub) returns the position of the first occurrence; pass a second arg to start searching from a given offset, so the next quote can be found after the first.",
   },
 
   "s1-1-6": {
@@ -113,7 +114,7 @@ print(url)
     ],
     requires: { calls: ["print"], stmts: ["BinOp"], minLines: 4 },
     flag: "PYTHON(Integer_arithmetic_unlocked)",
-    hint: "Add print(a-b), print(a*b), print(a//b)",
+    hint: "One print per operation. The four operators are +, -, *, and // (integer floor division — not /).",
   },
 
   "s1-1-7": {
@@ -133,7 +134,7 @@ print(url)
     ],
     requires: { calls: ["print"], stmts: ["BinOp"] },
     flag: "PYTHON(Floating_point_works)",
-    hint: "print(x * y)",
+    hint: "Multiply x by y and print the result. Python promotes int × float → float automatically.",
   },
 
   "s1-1-8": {
@@ -150,7 +151,7 @@ print(url)
     ],
     requires: { stmts: ["If"] },
     flag: "PYTHON(It_is_Vdue_to_Rayleigh_scattering)",
-    hint: "True or False?",
+    hint: "The starter's if/else is already correct — only the boolean value needs to change. The runner will then flip it to test both branches.",
   },
 
   "s1-1-9": {
@@ -178,7 +179,7 @@ print(firstName + " " + lastName)
     ],
     requires: { calls: ["str", "print"] },
     flag: "PYTHON(Type_casting_with_Grit)",
-    hint: "print(firstName + ' ' + lastName + ' ' + handle + ' ' + str(systemsCrashed) + ' ' + str(movieHoursLong) + ' ' + movieYear)",
+    hint: "Concat with + and ' ' separators. The two numeric fields (systemsCrashed, movieHoursLong) need str() — string + int raises TypeError.",
   },
 
   // ═══ Module 1.2 ═════════════════════════════════════════════════════════
@@ -199,7 +200,7 @@ print(firstName + " " + lastName)
     ],
     requires: { calls: ["len", "print"], stmts: ["Subscript"] },
     flag: "PYTHON(Lists_indexed)",
-    hint: "print(dogs[1]) and print(len(dogs))",
+    hint: "Index lists with [i] (0-based). Built-in len() returns the size.",
   },
 
   "s1-2-2": {
@@ -219,7 +220,7 @@ print(firstName + " " + lastName)
     ],
     requires: { stmts: ["For"], calls: ["print"] },
     flag: "PYTHON(Guts_is_packing)",
-    hint: "print(key + ': ' + theOne[key])",
+    hint: "Iterating a dict (for k in theOne) yields keys. Look up the value with theOne[k] and concat with ': '.",
   },
 
   // ═══ Module 1.3 ═════════════════════════════════════════════════════════
@@ -241,7 +242,7 @@ print(firstName + " " + lastName)
     ],
     requires: { stmts: ["For"], calls: ["range", "print"] },
     flag: "PYTHON(Loop_de_loop)",
-    hint: "total += i inside the loop",
+    hint: "range(n) yields 0..n-1. Accumulate each value into total inside the for body, then print total after the loop.",
   },
 
   "s1-3-2": {
@@ -266,7 +267,7 @@ print(firstName + " " + lastName)
     ],
     requires: { stmts: ["If"], calls: ["print"] },
     flag: "PYTHON(Conditionals_mastered)",
-    hint: "Test n % 15 first, then n % 3, then n % 5, else print(n)",
+    hint: "Use the modulo operator % to test divisibility. Order matters — check the most restrictive case (multiple of 15) before 3 or 5.",
   },
 
   "s1-3-3": {
@@ -285,7 +286,7 @@ print(firstName + " " + lastName)
     ],
     requires: { calls: ["input", "print"] },
     flag: "PYTHON(Standard_input)",
-    hint: 'print("Hello, " + name)',
+    hint: "The starter already reads stdin with input(). Just prefix what gets printed with 'Hello, '.",
   },
 
   // ═══ Module 1.4 ═════════════════════════════════════════════════════════
@@ -298,7 +299,7 @@ print(firstName + " " + lastName)
     expectedOutput: "PyForge\n",
     requires: { calls: ["open", "print"] },
     flag: "PYTHON(File_io_handled)",
-    hint: "with open('/workdir/out.txt','w') as f: f.write('PyForge')",
+    hint: "open(path, 'w') for writing, open(path) for reading. Use a with-block so the file closes automatically. Then print what f.read() returns.",
   },
 
   "s1-4-2": {
@@ -318,7 +319,7 @@ print(firstName + " " + lastName)
     ],
     requires: { defs: ["greet"], stmts: ["Return"], calls: ["print"] },
     flag: "PYTHON(Functions_speak)",
-    hint: 'return "Hello, " + name + "!"',
+    hint: "Inside greet(), build the string with concatenation and return it (don't print from inside the function).",
   },
 
   "s1-4-4": {
@@ -339,7 +340,7 @@ print(firstName + " " + lastName)
     ],
     requires: { defs: ["square"], stmts: ["Return"] },
     flag: "PYTHON(Return_to_sender)",
-    hint: "return x * x",
+    hint: "Return x * x (or x ** 2). The function body needs a real return statement — the starter's `return 0` always gives 0.",
   },
 
   "s1-4-5": {
@@ -359,7 +360,7 @@ print(firstName + " " + lastName)
     ],
     requires: { stmts: ["Import"], calls: ["math.sqrt", "print"] },
     flag: "PYTHON(Imports_imported)",
-    hint: "print(math.sqrt(n))",
+    hint: "math.sqrt(n) returns a float. Import the math module at the top, then print the result.",
   },
 
   // ═══ Module 1.5 / 1.6 ════════════════════════════════════════════════════
@@ -382,19 +383,19 @@ print(firstName + " " + lastName)
     ],
     requires: { stmts: ["Import"], calls: ["requests.get", "print"], attrs: ["status_code"] },
     flag: "PYTHON(Web_requests_master)",
-    hint: "r = requests.get('http://192.168.58.101/'); print(r.status_code)",
+    hint: "requests.get(url) returns a Response. Its .status_code attribute holds the HTTP code as an int.",
   },
 
   "s1-6-1": {
     filename: "socket_create.py",
     subsectionId: "s1-6-1",
     diff: "easy",
-    instructions: "Create a TCP socket using socket.AF_INET + socket.SOCK_STREAM, then print its family value.",
-    code: "#!/usr/bin/python\nimport socket\n# create a TCP socket and print s.family.value\n",
+    instructions: "Create a TCP socket using socket.AF_INET + socket.SOCK_STREAM, then print its family attribute.",
+    code: "#!/usr/bin/python\nimport socket\n# create a TCP socket and print s.family\n",
     expectedOutput: "2\n",
-    requires: { stmts: ["Import"], calls: ["socket.socket", "print"] },
+    requires: { stmts: ["Import"], calls: ["socket.socket", "print"], attrs: ["family"] },
     flag: "PYTHON(Sockets_created)",
-    hint: "s = socket.socket(socket.AF_INET, socket.SOCK_STREAM); print(s.family.value)",
+    hint: "socket.socket() takes (family, type). For a TCP socket pass socket.AF_INET and socket.SOCK_STREAM. The resulting socket exposes .family.",
   },
 
   "s1-6-2": {
@@ -406,7 +407,7 @@ print(firstName + " " + lastName)
     expectedOutput: "connected\n",
     requires: { calls: ["socket.socket", "print"], attrs: ["connect"], stmts: ["Try"] },
     flag: "PYTHON(Sockets_connected)",
-    hint: "Use s.connect((host, port)) inside try/except",
+    hint: "s.connect() takes a (host, port) tuple. Wrap it in try/except — on success print 'connected', on any Exception print 'failed'.",
   },
 
   "s1-6-3": {
@@ -418,7 +419,7 @@ print(firstName + " " + lastName)
     expectedOutput: "HTTP/1.1 200 OK\n",
     requires: { calls: ["socket.socket", "print"], attrs: ["connect", "send", "recv"] },
     flag: "PYTHON(Bytes_on_the_wire)",
-    hint: "s.send(b'GET / HTTP/1.0\\r\\nHost: 192.168.58.101\\r\\n\\r\\n'); data = s.recv(4096); print(data.decode().splitlines()[0])",
+    hint: "send() needs bytes (b'...'). An HTTP/1.0 request ends with a blank line — i.e. \\r\\n\\r\\n. recv() returns bytes; decode() to str, then splitlines()[0] gives the status line.",
   },
 
   // ═══ Module 1.7 ═════════════════════════════════════════════════════════
@@ -431,7 +432,7 @@ print(firstName + " " + lastName)
     expectedOutput: "    <a href=\"/about\">About</a>\n    <a href=\"/contact\">Contact</a>\n    <a href=\"/blog\">Blog</a>\n",
     requires: { stmts: ["For", "If"], calls: ["requests.get", "print"], attrs: ["text", "split"] },
     flag: "PYTHON(Lines_of_href)",
-    hint: "for line in r.text.split('\\n'): if 'href=' in line: print(line)",
+    hint: "r.text is the response body as a string. Split it on '\\n' and print only the lines where 'href=' appears.",
   },
 
   "s1-7-3": {
@@ -452,7 +453,7 @@ print(firstName + " " + lastName)
     ],
     requires: { stmts: ["For", "If"], calls: ["print"], attrs: ["append"] },
     flag: "PYTHON(No_duplicates_allowed)",
-    hint: "if u not in unique: unique.append(u)",
+    hint: "Walk urls; for each one, append to a separate list only if it's not already there. Using set() would lose order — don't.",
   },
 
   "s1-7-4": {
@@ -464,7 +465,7 @@ print(firstName + " " + lastName)
     expectedOutput: "/about\n/contact\n/blog\n",
     requires: { stmts: ["For", "If"], calls: ["requests.get", "print"], attrs: ["text", "split"] },
     flag: "PYTHON(Putting_It_All_Together_Spider)",
-    hint: "Parse href=\"…\" with split, track seen URLs in a list",
+    hint: "Combines labs 1.5.3 (fetch), 1.7.2 (find href lines), and 1.7.3 (dedupe). For each href= line, slice between the two '\"' characters; keep a list of URLs already printed.",
   },
 
   // ═══ Module 2 ═══════════════════════════════════════════════════════════
@@ -477,7 +478,7 @@ print(firstName + " " + lastName)
     expectedOutput: "HTTP/1.1 200 OK\n",
     requires: { calls: ["socket.socket", "print"], attrs: ["connect", "send", "recv"] },
     flag: "PYTHON(Basic_TCP_client)",
-    hint: "Build the GET request as bytes and send it",
+    hint: "Same shape as lab 1.6.3 (socket_send). Connect to (host, 80), send b'GET / HTTP/1.0\\r\\n\\r\\n', recv, decode, print the first line.",
   },
 
   "s2-2-1": {
@@ -498,7 +499,7 @@ print(firstName + " " + lastName)
     ],
     requires: { stmts: ["Try"], calls: ["socket.socket", "print"] },
     flag: "PYTHON(Try_and_except)",
-    hint: "Wrap s.connect((host, port)) in try / except",
+    hint: "Set a short s.settimeout() so closed ports fail quickly. Wrap s.connect(('192.168.58.101', port)) in try/except — print 'open' on success, 'closed' on Exception.",
   },
 
   "s2-3-1": {
@@ -512,7 +513,7 @@ print(firstName + " " + lastName)
     serverPort: 8080,
     requires: { calls: ["socket.socket"], attrs: ["bind", "listen", "accept", "send", "close"] },
     flag: "PYTHON(Server_built)",
-    hint: "s.bind(('0.0.0.0',8080)); s.listen(); c,_=s.accept(); c.send(b'OK'); c.close()",
+    hint: "Server lifecycle: bind((host, port)) → listen() → accept() (returns conn, addr) → conn.send(bytes) → conn.close(). The runner connects from a netcat client.",
   },
 
   "s2-3-2": {
@@ -526,7 +527,7 @@ print(firstName + " " + lastName)
     serverPort: 8080,
     requires: { calls: ["socket.socket"], attrs: ["bind", "listen", "accept", "send"] },
     flag: "PYTHON(Server_Side_Shenanigans)",
-    hint: "c.send(b'Connection Established') after accept()",
+    hint: "Same lifecycle as lab 2.3.1, just send b'Connection Established' instead of b'OK'.",
   },
 
   "s2-4-1": {
@@ -538,7 +539,7 @@ print(firstName + " " + lastName)
     expectedOutput: "80\n",
     requires: { stmts: ["For"], calls: ["socket.socket", "range", "print"], attrs: ["connect_ex"] },
     flag: "PYTHON(Port_scanner_v1)",
-    hint: "for p in range(78,83): if s.connect_ex(('192.168.58.101',p)) == 0: print(p)",
+    hint: "socket.connect_ex((host, port)) returns 0 for open ports (an int errno otherwise — no exception). Iterate range(78, 83) and print only the open ones. Remember range's stop is exclusive.",
   },
 
   "s2-5-2": {
@@ -550,7 +551,7 @@ print(firstName + " " + lastName)
     expectedOutput: "PyForgeHTTP/1.0\n",
     requires: { calls: ["requests.get", "print"], attrs: ["headers"] },
     flag: "PYTHON(Response_headers_read)",
-    hint: "print(r.headers['Server'])",
+    hint: "r.headers behaves like a case-insensitive dict. Index it with the header name.",
   },
 
   "s2-5-3": {
@@ -569,7 +570,7 @@ print(firstName + " " + lastName)
     ],
     requires: { stmts: ["For", "If"], calls: ["requests.get", "print"], attrs: ["text", "split"] },
     flag: "PYTHON(HTML_lines_filtered)",
-    hint: "for line in r.text.split('\\n'): if 'title' in line: print(line)",
+    hint: "Same pattern as lab 1.7.2 — split r.text by '\\n' and filter for 'title' instead of 'href='.",
   },
 
   "s2-6-1": {
@@ -590,7 +591,7 @@ print(firstName + " " + lastName)
     ],
     requires: { calls: ["requests.post", "print"], attrs: ["text"] },
     flag: "PYTHON(POST_request_sent)",
-    hint: "r = requests.post(url, data={'user':'alice'}); print(r.text.strip())",
+    hint: "requests.post(url, data={...}) sends form-encoded body. Read r.text and strip() to remove trailing newlines.",
   },
 
   // ═══ Module 3 ═══════════════════════════════════════════════════════════
@@ -611,7 +612,7 @@ print(firstName + " " + lastName)
     ],
     requires: { calls: ["len", "print"], attrs: ["split", "join"] },
     flag: "PYTHON(Split_and_join)",
-    hint: 'print(len(words)); print("-".join(words))',
+    hint: "str.split() with no args splits on any whitespace. len() of the resulting list gives the word count; sep.join(list) does the reverse.",
   },
 
   "s3-1-3": {
@@ -631,7 +632,7 @@ print(firstName + " " + lastName)
     ],
     requires: { calls: ["round", "print"] },
     flag: "PYTHON(Rounded_off)",
-    hint: "print(round(x, 2))",
+    hint: "Built-in round(value, ndigits). Note: 3.145 → 3.14 in Python 3 (banker's rounding) — that's fine.",
   },
 
   "s3-1-5": {
@@ -654,7 +655,7 @@ print(firstName + " " + lastName)
     ],
     requires: { calls: ["bool", "print"] },
     flag: "PYTHON(Boolean_truthy)",
-    hint: "print(bool(v))",
+    hint: "bool() coerces anything to True/False. Falsy: 0, 0.0, '', [], {}, None — everything else is True.",
   },
 
   "s3-2-1": {
@@ -674,7 +675,7 @@ print(firstName + " " + lastName)
     ],
     requires: { calls: ["set", "sorted", "print"] },
     flag: "PYTHON(Set_theory_applied)",
-    hint: "sa, sb = set(a), set(b); print(sorted(sa & sb)); print(sorted(sa | sb)); print(sorted(sa - sb))",
+    hint: "Convert both lists to set(). The operators are & (intersection), | (union), - (difference). Wrap each result in sorted() to print a stable list.",
   },
 
   "s3-2-4": {
@@ -694,7 +695,7 @@ print(firstName + " " + lastName)
     ],
     requires: { attrs: ["get"], calls: ["print"] },
     flag: "PYTHON(Safe_dict_access)",
-    hint: 'print(data.get("name", "unknown"))',
+    hint: "dict.get(key, default) returns default when the key is missing — unlike data[key] which raises KeyError.",
   },
 
   "s3-3-1": {
@@ -715,7 +716,7 @@ print(firstName + " " + lastName)
     ],
     requires: { calls: ["bin", "print"] },
     flag: "PYTHON(Binary_thinking)",
-    hint: "print(bin(n))",
+    hint: "Built-in bin(int) returns the string '0bNNNN' — exactly what's expected.",
   },
 
   "s3-3-3": {
@@ -735,7 +736,7 @@ print(firstName + " " + lastName)
     ],
     requires: { calls: ["hex", "print"] },
     flag: "PYTHON(Hex_master)",
-    hint: "print(hex(n))",
+    hint: "Built-in hex(int) returns the string '0xNN' (lowercase). Mirror of bin().",
   },
 
   "s3-4-1": {
@@ -756,7 +757,7 @@ print(firstName + " " + lastName)
     ],
     requires: { calls: ["ord", "print"] },
     flag: "PYTHON(ASCII_unlocked)",
-    hint: "print(ord(c))",
+    hint: "Built-in ord(single_char) returns its Unicode/ASCII code point as an int. Inverse of chr().",
   },
 
   "s3-4-4": {
@@ -776,7 +777,7 @@ print(firstName + " " + lastName)
     ],
     requires: { calls: ["chr", "ord", "print"] },
     flag: "PYTHON(Chr_and_back)",
-    hint: "ch = chr(n); print(ch); print(ord(ch))",
+    hint: "chr(int) returns the corresponding 1-character string; ord(char) goes back to int. Round-trip both.",
   },
 
   "s3-7-3": {
@@ -796,7 +797,7 @@ print(firstName + " " + lastName)
     ],
     requires: { calls: ["json.loads", "print"], stmts: ["Import"] },
     flag: "PYTHON(JSON_parsed)",
-    hint: 'data = json.loads(payload); print(data["name"]); print(data["count"])',
+    hint: "json.loads(str) parses a JSON string into a dict/list. Then index it like any dict: data['name'], data['count'].",
   },
 };
 
